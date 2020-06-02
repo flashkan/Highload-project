@@ -1,0 +1,67 @@
+--------------------------------------------------------------Master
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| skytech            |
+| test_lesson        |
++--------------------+
+5 rows in set (0.01 sec)
+
+MariaDB [(none)]> use skytech;
+Database changed
+
+MariaDB [skytech]> select orderNumber from orders limit 1;
++-------------+
+| orderNumber |
++-------------+
+|       10100 |
++-------------+
+1 row in set (0.00 sec)
+
+--------------------------------------------------------------Slave
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| skytech            |
++--------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [(none)]> use skytech;
+Database changed
+
+MariaDB [skytech]> select orderNumber from orders limit 1;
++-------------+
+| orderNumber |
++-------------+
+|       10100 |
++-------------+
+1 row in set (0.00 sec)
+
+--------------------------------------------------------------Master
+MariaDB [skytech]> delete from orders where orderNumber = 10100;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [skytech]> select orderNumber from orders limit 1;
++-------------+
+| orderNumber |
++-------------+
+|       10101 |
++-------------+
+1 row in set (0.00 sec)
+
+--------------------------------------------------------------Slave
+MariaDB [skytech]> select orderNumber from orders limit 1;
++-------------+
+| orderNumber |
++-------------+
+|       10101 |
++-------------+
+1 row in set (0.00 sec)
