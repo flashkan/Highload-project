@@ -1,0 +1,41 @@
+Задание 1.
+-----------------------------------------------Сервер 1
+-----index.php
+echo 'From server 1 php <br>';
+
+-----nginx/conf.d/upstream.conf
+upstream backend {
+	server backend1.site.local:8080;
+	server backend2.site.local:8080;
+}
+server {
+	listen 80;
+	server_name site.local;
+
+	location / {
+		proxy_pass  http://backend; 
+	}
+}
+
+-----etc/hosts
+# Balancer
+127.0.0.1       backend1.site.local
+192.168.185.110 backend2.site.local
+
+-----------------------------------------------Сервер 2
+echo 'From server 2 php <br>';
+
+Остальный настройки двух серверов стандартные.
+Первый сервер принемает запрос на 80 порт 
+и балансит по очереди на каждый сервер на порт 8080.
+
+Задание 3.
+Перенес файл index.php в папку /var/www/html/.
+После чего создал символическую ссылку на него
+из папки /var/www/site.local (куда как раз и смотрит nginx).
+Nginx отработал без нариканий.
+
+nik2@nik2-Virtual-Machine:/var/www/site.local$ ls -l
+total 4
+-rw-r--r-- 1 root root 30 июн  2 12:05 index.html
+lrwxrwxrwx 1 root root 23 июн  2 23:39 index.php -> /var/www/html/index.php
