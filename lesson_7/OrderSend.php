@@ -20,7 +20,7 @@ class OrderSend
 
         $channel->basic_publish(new AMQPMessage(json_encode($data)), '', 'OrderFood');
 
-        echo " [x] New Order <br>";
+        echo " [x] New Order \n";
 
         $channel->close();
         $connection->close();

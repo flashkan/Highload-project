@@ -40,16 +40,16 @@ class OrderCheck
     {
         $data = json_decode($msg->body, true);
         $food = $data['food'];
-        echo " [x] Order on $food <br>";
+        echo " [x] Order on $food \n";
         if (array_key_exists($food, $this->foodsAndPrices)) {
             $data['id'] = uniqid();
             $data['price'] = $this->foodsAndPrices[$food];
             $data['feedback'] = '';
 
-            echo 'Add order ' . $data['id'] . ' cost ' . $this->foodsAndPrices[$food] . '<br>';
+            echo 'Add order ' . $data['id'] . ' cost ' . $this->foodsAndPrices[$food] . "\n";
 
             $this->sendOrderOnPayment($data);
-        } else echo $food . ' not found <br>';
+        } else echo $food . " not found \n";
     }
 
     public function sendOrderOnPayment($data)

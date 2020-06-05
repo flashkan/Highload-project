@@ -32,9 +32,9 @@ class OrderDelivery
     {
         $data = json_decode($msg->body, true);
         $id = $data['id'];
-        echo " [x] Order $id delivering <br>";
+        echo " [x] Order $id delivering \n";
         sleep(5); // Доставка продуктов покупателю.
-        echo " [x] Order delivered <br>";
+        echo " [x] Order delivered \n";
 
         $this->putOrderInArchive($data);
     }
@@ -49,7 +49,7 @@ class OrderDelivery
 
         file_put_contents('archive.json', json_encode($result));
 
-        echo "Archive saved with new order - $id <br>";
+        echo "Archive saved with new order - $id \n";
     }
 }
 

@@ -32,9 +32,9 @@ class OrderPayment
     {
         $data = json_decode($msg->body, true);
         $id = $data['id'];
-        echo " [x] Start transaction on order $id <br>";
+        echo " [x] Start transaction on order $id \n";
         sleep(5); // Оплата с счета покупателя.
-        echo " [x] Transaction on order $id successfully finished <br>";
+        echo " [x] Transaction on order $id successfully finished \n";
 
         $this->sendOrderOnDelivery($data);
     }
