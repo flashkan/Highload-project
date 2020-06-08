@@ -1,0 +1,53 @@
+Использовал очереди только для:
+1. Отправка заказа
+2. Оплата
+3. Доставка
+
+После доставки заказ уходит в архив.
+Далее к нему можно добавить комментарий пользователя.
+
+Реализованно все несколькими классами.
+-1- Для отправки заказа - OrderSend.php
+-2- Демон проверяющий заказ и отправляющий
+в очередь оплаты - OrderCheck.php
+-3- Демон производящий оплату и отправляющий
+заказ в очередь на доставку OrderPayment.php
+-4- Демон следящий за доставкой и передающий
+заказ в архив.
+-5- Класс имитирующий отзыва пользователей - Feedback.php
+
+---Запуск скриптов и их вывод или пояснение:
+-------------------------------------------------
+
+php OrderSend.php
+ [x] New Order
+
+-------------------------------------------------
+
+php OrderCheck.php
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Order on bananas
+Add order 5eda35ba92ed7 cost 30
+
+-------------------------------------------------
+
+php OrderPayment.php
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Start transaction on order 5eda35ba92ed7
+ [x] Transaction on order 5eda35ba92ed7 successfully finished
+
+-------------------------------------------------
+
+sudo php OrderDelivery.php
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Order 5eda35ba92ed7 delivering
+ [x] Order delivered
+Archive saved with new order - 5eda35ba92ed7
+
+-------------------------------------------------
+
+sudo php Feedback.php
+Пробегается по всем заказам и добавляет комментарий.
+Условная имитация того, что пользователь после заказа оставил отзыв.
+
+-------------------------------------------------
